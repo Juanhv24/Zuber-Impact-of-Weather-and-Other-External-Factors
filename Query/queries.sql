@@ -1,26 +1,8 @@
-/*SELECT 
-    cabs.company_name,
-    COUNT (trips.trip_id) AS trips_amount
-FROM cabs
-INNER JOIN trips ON cabs.cab_id = trips.cab_id
-WHERE cabs.company_name LIKE '%Yellow%'
-GROUP BY cabs.company_name
-
-UNION
-    
-SELECT 
-    'Other' AS company_name,
-    COUNT(trips.trip_id) AS trips_amount
-FROM cabs
-INNER JOIN trips ON cabs.cab_id = trips.cab_id
-WHERE cabs.company_name NOT LIKE '%Yellow%';*/
-
 /* 
-Ejercicio 1
-Imprime el campo company_name. Encuentra la cantidad de viajes en taxi para cada
-compañía de taxis para el 15 y 16 de noviembre de 2017, asigna al campo resultante el
-nombre trips_amount e imprímelo también. Ordena los resultados por el campo 
-trips_amount en orden descendente.
+The number of taxi trips completed by each cab company was calculated for November 15 and 16, 2017. 
+The results include the company names and the corresponding trip counts (labeled as trips_amount). 
+The data was grouped by company and sorted in descending order based on the number of trips to 
+highlight the most active taxi services during that period.
 */
 SELECT 
     cabs.company_name,
@@ -33,10 +15,10 @@ GROUP BY cabs.company_name
 ORDER BY trips_amount DESC;
 
 /* 
-Ejercicio 2
-Encuentra la cantidad de viajes para cada empresa de taxis cuyo nombre contenga 
-las palabras "Yellow" o "Blue" del 1 al 7 de noviembre de 2017. Nombra la variable 
-resultante trips_amount. Agrupa los resultados por el campo company_name.
+The total number of taxi trips was calculated for each company whose name includes the words “Yellow” 
+or “Blue” during the period from November 1 to November 7, 2017. The resulting variable, trips_amount,
+ represents the total trips made by each of these companies. The data was grouped by company name to 
+ compare the activity levels of the selected taxi services.
 */
 SELECT 
     cabs.company_name,
@@ -50,11 +32,11 @@ WHERE
 GROUP BY cabs.company_name
 
 /*
-Ejercicio 3
-Del 1 al 7 de noviembre de 2017, las empresas de taxis más populares fueron Flash Cab y Taxi Affiliation Services
-. Encuentra el número de viajes de estas dos empresas y asigna a la variable resultante el nombre trips_amount. 
-Junta los viajes de todas las demás empresas en el grupo "Other". Agrupa los datos por nombres de empresas de taxis. 
-Asigna el nombre company al campo con nombres de empresas de taxis. Ordena el resultado en orden descendente por trips_amount.
+Between November 1 and 7, 2017, the analysis focused on identifying the most popular taxi companies. 
+The trip data was grouped to highlight Flash Cab and Taxi Affiliation Services, while all remaining 
+companies were consolidated under the label “Other.” The total number of trips for each group was 
+calculated and stored in the variable trips_amount. Finally, the results were sorted in descending order
+ of trip volume to emphasize the companies with the highest activity during that week.
 */
 SELECT 
     CASE 
@@ -74,8 +56,9 @@ ORDER BY
     trips_amount DESC;
 
 /*
-Ejercicio 4
-Recupera los identificadores de los barrios de O'Hare y Loop de la tabla neighborhoods.
+The neighborhood identifiers were retrieved for the areas O'Hare and Loop from the neighborhoods table.
+The query selected both the neighborhood names and their corresponding IDs to isolate these specific 
+locations for further analysis.
 */
 SELECT name,neighborhood_id
 FROM neighborhoods
@@ -83,11 +66,10 @@ WHERE name LIKE '%Hare'
    OR name LIKE 'Loop'
 
 /*
-Ejercicio 5
-Para cada hora recupera los registros de condiciones meteorológicas de la tabla weather_records. 
-Usando el operador CASE, divide todas las horas en dos grupos: Bad si el campo description contiene las palabras rain o storm, 
-y Good para los demás. Nombra el campo resultante weather_conditions. 
-La tabla final debe incluir dos campos: fecha y hora (ts) y weather_conditions.
+Weather condition records were retrieved for each hour from the weather_records table. Using a CASE statement
+, all hourly entries were classified into two categories: “Bad” when the description field contained the words
+ “rain” or “storm,” and “Good” for all other cases. The resulting table included two columns — the timestamp 
+ (ts) and the corresponding weather_conditions — providing a simplified overview of hourly weather patterns.
 */
 
 /*SELECT * FROM weather_records*/
@@ -101,18 +83,12 @@ FROM
     weather_records
 
 /*
-Ejercicio 6
-Recupera de la tabla de trips todos los viajes que comenzaron en el Loop (pickup_location_id: 50)
- el sábado y terminaron en O'Hare (dropoff_location_id: 63). Obtén las condiciones climáticas para cada viaje. 
- Utiliza el método que aplicaste en la tarea anterior. Recupera también la duración de cada viaje. 
- Ignora los viajes para los que no hay datos disponibles sobre las condiciones climáticas.
-
-Las columnas de la tabla deben estar en el siguiente orden:
-
-start_ts
-weather_conditions
-duration_seconds
-Ordena por trip_id.
+Trip data was extracted from the trips table to identify all rides that began in the Loop (pickup_location_id = 50)
+ on Saturday and ended in O’Hare (dropoff_location_id = 63). Weather conditions for each trip were obtained using 
+the same classification method as in the previous task, labeling conditions as “Bad” when the description included
+“rain” or “storm,” and “Good” otherwise. The resulting table included the trip start time (start_ts), corresponding
+weather_conditions, and duration_seconds. Only trips with available weather data were considered, and the results
+were ordered by trip_id.
 */
 
 SELECT 
